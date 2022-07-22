@@ -6,7 +6,7 @@ app.get('/', (req, res) => {
   res.send('Hello world!')
 })
 
-app.get("/hello/:name", (req, res) => {
+app.get("/:name", (req, res) => {
   const { name } = req.params;
   res.send(`Hello ${name}!`)
 })
