@@ -1,120 +1,130 @@
-
-const express = require('express');
-const jwt = require('jsonwebtoken');
-
-
-
-const app = express();
-
-
-app.get('/api',  (req, res) => {
-  res.json({
-    messege: 'welcome to api!'
-  });
-});
-
-
-
-app.post('/api/posts', (req, res) => {
-      res.json({
-        messege: 'post created.....', 
-        // authData
-      });
-  });
-
-
-
-  
-app.post('/api/login', (req, res) => {
-  const user = {
-    id: 1,
-    username: "sharique",
-    email: "sharique.gmail.com"
-  }
-
-
-  jwt.sign({ user }, 'secretkey',(err, token) => {
-    res.json({
-      token
-    });
-
-  });
-});
-
-// format o0f token 
-
-
-
-
-app.listen(5000, () => console.log(` Server started on the port 5000`));
-
-
-// second 
-
-
 // const express = require('express');
 // const jwt = require('jsonwebtoken');
 
 // const app = express();
 
-
-// app.get('/api', verifyToken, (req, res) => {
+// app.get('/api', (req, res) => {
 //   res.json({
-//     messege: 'welcome to api!'
+//     message: 'Welcome to the our  API'
 //   });
 // });
 
-// app.post('/api/posts', (req, res) => {
-//   jwt.verify(req.token, 'secretkey', (err, authData) => {
-//     if (err) {
-//       res.sendStatus(403);
-//     }
-//     else {
-
-//       res.json({
-//         messege: 'post created.....', 
-//         authData
-//       });
-//     }
-
+// app.post('/api/posts', verifyToken, (req, res) => {
+//   jwt.verify(req.token , 'secretkey', (err, authData)=>{
+// if(err){
+//   res.sendStatus(403)
+// }else{
+//   res.json({
+//     message: 'post is  created....',
+//     authData
+//   });
+// }
 //   });
 // });
+
 
 // app.post('/api/login', (req, res) => {
+//   // Mock user
 //   const user = {
-//     id: 1,
-//     username: "sharique",
-//     email: "sharique.gmail.com"
+//     id: 1, 
+//     username: 'brad',
+//     email: 'brad@gmail.com'
 //   }
-
-
-//   jwt.sign({ user }, 'secretkey',{expiresIn: '30s'} ,(err, token) => {
+//   jwt.sign({user}, 'secretkey', { expiresIn: '30s' }, (err, token) => {
 //     res.json({
 //       token
 //     });
-
 //   });
 // });
 
-// // format o0f token 
 
-
-
-// // verifyToken
+// // Verify Token
 // function verifyToken(req, res, next) {
-//   const shariqueHeader = req.headers["authorization"];
-//   if (typeof shariqueHeader !== 'undefined') {
-//     const sharique = shariqueHeader.split('');
-//     const shariquetoken = sharique[1];
-//     req.token = shariquetoken;
+//   // Get auth header value
+//   const bearerHeader = req.headers['authorization'];
+//   // Check if bearer is undefined
+//   if(typeof bearerHeader !== 'undefined') {
+//     // Split at the space
+//     const bearer = bearerHeader.split(' ');
+//     // Get token from array
+//     const bearerToken = bearer[1];
+//     // Set the token
+//     req.token = bearerToken;
+//     // Next middleware
 //     next();
-
-
-//   }
-//   else {
-//     res.sendstatus(403);
+//   } else {
+//     // Forbidden
+//     res.sendStatus(403);
 //   }
 
 // }
 
-// app.listen(5000, () => console.log(` Server started on the port 5000`));
+// app.listen(5000, () => console.log('Server started on port 5000')); 
+
+
+const express = require('express');
+const jwt = require('jsonwebtoken');
+
+const app = express();
+
+app.get('/api', (req, res) => {
+  res.json({
+    message: 'Welcome to the our  API sharique'
+  });
+});
+
+app.post('/api/posts', verifyToken, (req, res) => {
+  jwt.verify(req.token , 'secretkey', (err, authData)=>{
+if(err){
+  res.sendStatus(403)
+}else{
+  res.json({
+    message: 'post is  created....',
+    authData
+  });
+}
+  });
+});
+
+
+app.post('/api/login', (req, res) => {
+  // Mock user
+  const user = {
+    id: 1, 
+    username: 'brad',
+    email: 'brad@gmail.com'
+  }
+  jwt.sign({user}, 'secretkey', {expiresIn: '500s'},(err, token) => {
+    res.json({
+      token
+    });
+  });
+});
+
+
+
+
+
+// Verify Token
+function verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  console.log(bearerHeader);
+  // Check if bearer is undefined
+  if(typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
+  }
+
+}
+
+app.listen(3000, () => console.log('Server started on port 3000')); 
