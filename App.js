@@ -40,8 +40,6 @@ app.post('/api/login', (req, res) => {
 
 
 
-
-
 // Verify Token
 function verifyToken(req, res, next) {
   // Get auth header value
