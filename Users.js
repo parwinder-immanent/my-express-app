@@ -28,7 +28,7 @@ AdultLists(age) {
     return users.find(user => user.age >= 18)
 },
 ChildLists(age) {
-    return users.find(user => user.age <= 18)
+    return users.find(user => user.age <= 19)
 },
 }
 
