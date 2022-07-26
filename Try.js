@@ -1,44 +1,49 @@
 
-const userone = {
-    name: "Adiya",
-    email: "a@gmail.com",
-    age : 50
-}
-const usertwo = {
-    name: "bipin",
-    email: "b@gmail.com",
-    age : 16
-}
-const userthree = {
-    name: "Ujjawal",
-    email: "Ujjawal@gmail.com",
-    age : 36
-}
+// const userone = {
+//     name: "Adiya",
+//     email: "a@gmail.com",
+//     age : 50
+// }
+// const usertwo = {
+//     name: "bipin",
+//     email: "b@gmail.com",
+//     age : 16
+// }
+// const userthree = {
+//     name: "Ujjawal",
+//     email: "Ujjawal@gmail.com",
+//     age : 36
+// }
 
 
-const users = [userone, usertwo, userthree];
+// const users = [userone, usertwo, userthree];
 
-UserDb = {
-    get users() {
-        return users
-    },
+// UserDb = {
+//     get users() {
+//         return users
+//     },
 
-addUser(user){
-    users.push(user)
-},
+// addUser(user){
+//     users.push(user)
+// },
 
-findUserByName(name) {
-    return users.find(user => user.name === name)
-},
+// findUserByName(name) {
+//     return users.find(user => user.name === name)
+// },
 
-AdultLists(age) {
-    return users.find(user => user.age >= 18)
-},
+// AdultLists(age) {
+//     return users.find(user => user.age >= 18)
+// },
+// ChildLists(age) {
+//     return users.find(user => user.age <= 18)
+// },
+
+// }
+
+// console.log(UserDb.AdultLists())
+// console.log(UserDb.ChildLists())
 
 
-}
-
-console.log(UserDb.AdultLists())
 
 
 

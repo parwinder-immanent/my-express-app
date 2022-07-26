@@ -1,15 +1,26 @@
 const { UserDB } = require('./Users')
-
+const cors = require("cors")
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
 const app = express();
+app.use(express.json())
+app.use(cors())
 
 app.get('/api', (req, res) => {
   res.json({
     message: 'Welcome to the our  API sharique'
   });
 });
+
+app.post('/register', (req, res) => {
+  // 1. get data from reqeust body: ✔
+  const user = req.body;
+  // 2. verify if the data is a valid user
+  // 3. add new user to database if the data is valid
+  UserDB.addUser(user)
+  res.json(UserDB.users)
+})
 
 app.post('/api/posts', verifyToken, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -23,7 +34,6 @@ app.post('/api/posts', verifyToken, (req, res) => {
     }
   });
 });
-console.log(UserDB)
 
 app.post('/api/login', (req, res) => {
   // Mock user
@@ -37,11 +47,7 @@ app.post('/api/login', (req, res) => {
       token
     });
   });
-});
-
-
-
-// Verify Token
+});  // Verify Token
 function verifyToken(req, res, next) {
   // Get auth header value
   const bearerHeader = req.headers['authorization'];
